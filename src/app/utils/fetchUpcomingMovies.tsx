@@ -1,4 +1,4 @@
-import tmdbFetch from "../api/tmdb/route";
+import tmdbFetch from "./fetchMovies";
 import { MoviesResponse } from "../types/movies";
 
 export  async function FethUpcomingMovies(): Promise<MoviesResponse> {

@@ -46,7 +46,7 @@ export default function SignUp() {
 
   return (
     <div className="overflow-hidden h-screen">
-      <div className="flex gap-80 overflow-hidden h-full">
+      <div className="flex gap-50 overflow-hidden h-full">
         <div>
           <Image src="/movieCover.jpeg" width={900} height={1000} alt="movie Cover" />
         </div>
@@ -106,7 +106,7 @@ export default function SignUp() {
               </button>
               <button
                 type="button"
-                className="border border-black text-white py-3 rounded-md bg-white hover:bg-yellow-600 hover:text-white transition"
+                className="border border-black text-black py-3 rounded-md bg-white hover:bg-yellow-600 hover:text-white transition"
               >
                 Sign Up with Google
               </button>
