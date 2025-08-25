@@ -8,6 +8,7 @@ import UpcomingMovies from "./components/upcomingMovies";
 import { useFetchLatestMovies } from "../hooks/userFetchLatestMovies";
 import { Footer } from "../Shared-components/footer";
 
+
 const Homepage: React.FC = () => {
   const { data: movies, loading, error } = useFetchLatestMovies();
 
