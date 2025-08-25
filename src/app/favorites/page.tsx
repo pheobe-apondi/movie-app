@@ -17,12 +17,11 @@ const FavouritesPage: React.FC = () => {
 
   return (
     <div>
-        <NavBar/>
-      <h1 className="text-3xl p-4 font-black">My Favourites</h1>
+      <NavBar />
       {favouriteMovies.length === 0 ? (
         <p className="p-4">You haven't liked any movies yet.</p>
       ) : (
-        <MovieScroller  />
+        <MovieScroller movies={favouriteMovies} />
       )}
     </div>
   );

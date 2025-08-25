@@ -14,7 +14,7 @@ const NavBar: React.FC = () => (
     </div>
 
     <div className="flex items-center gap-6">
-      <a href="#" className="text-yellow-400 font-semibold border-b-2 border-yellow-400 pb-1">Home</a>
+      <a href="/" className="text-yellow-400 font-semibold border-b-2 border-yellow-400 pb-1">Home</a>
       <a href="/favorites" className="hover:text-yellow-400">Favorites</a>
       <button className="bg-yellow-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-yellow-500 transition"> <a href="/signin">Sign in</a></button>
     </div>

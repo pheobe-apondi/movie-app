@@ -8,10 +8,17 @@ import { useFetchLatestMovies } from "@/app/hooks/userFetchLatestMovies";
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-const MovieScroller: React.FC = () => {
-  const { data: movies, loading, error } = useFetchLatestMovies();
+interface MovieScrollerProps {
+  movies?: Movie[]; // optional prop for displayed movies
+}
+
+const MovieScroller: React.FC<MovieScrollerProps> = ({ movies: propMovies }) => {
+  const { data: fetchedMovies, loading, error } = useFetchLatestMovies();
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [favourites, setFavourites] = useState<Movie[]>([]);
+
+  // Use passed movies if provided, else fetched movies
+  const movies = propMovies || fetchedMovies;
 
   useEffect(() => {
     const stored = localStorage.getItem("favourites");
@@ -27,19 +34,20 @@ const MovieScroller: React.FC = () => {
       const updated = alreadyLiked
         ? prev.filter((m) => m.id !== movie.id)
         : [...prev, movie];
-
       localStorage.setItem("favourites", JSON.stringify(updated));
       return updated;
     });
   };
 
-  if (loading) return <p className="text-center mt-10">Loading movies...</p>;
-  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+  if (loading && !propMovies) return <p className="text-center mt-10">Loading movies...</p>;
+  if (error && !propMovies) return <p className="text-center mt-10 text-red-500">{error}</p>;
   if (!movies || movies.length === 0) return <p className="text-center mt-10">No movies found.</p>;
 
   return (
     <>
-      <h1 className="text-3xl p-3 font-black">Latest Movies</h1>
+      <h1 className="text-3xl p-3 font-black">
+        {propMovies ? "My Favourite Movies" : "Latest Movies"}
+      </h1>
       <div className="flex overflow-x-auto space-x-4 p-4 scrollbar-hide hide-scrollbar">
         {movies.map((movie) =>
           movie.poster_path ? (

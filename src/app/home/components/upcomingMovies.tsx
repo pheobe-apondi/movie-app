@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Movie } from "@/app/types/movies";
-import { Heart, HeartFill } from "react-bootstrap-icons"; 
+import { Heart, HeartFill } from "react-bootstrap-icons";
 import { useFetchUpcomingMovies } from "@/app/hooks/userFetchUpcoming";
-
-
-
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -16,7 +13,7 @@ const UpcomingMovies: React.FC = () => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [favourites, setFavourites] = useState<Movie[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const stored = localStorage.getItem("favourites");
     if (stored) setFavourites(JSON.parse(stored));
   }, []);
@@ -29,7 +26,6 @@ const UpcomingMovies: React.FC = () => {
       const updated = alreadyLiked
         ? prev.filter((m) => m.id !== movie.id)
         : [...prev, movie];
-
       localStorage.setItem("favourites", JSON.stringify(updated));
       return updated;
     });
@@ -62,7 +58,10 @@ const UpcomingMovies: React.FC = () => {
 
               <button
                 className="absolute top-2 right-2 text-red-500 text-xl"
-                onClick={() => toggleFavourite(movie)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFavourite(movie);
+                }}
                 aria-label={isFavourite(movie) ? "Remove from favourites" : "Add to favourites"}
               >
                 {isFavourite(movie) ? <HeartFill /> : <Heart />}
